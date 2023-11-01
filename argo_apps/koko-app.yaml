@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  name: koko-app
+  namespace: argocd
+spec:
+  destination:
+    namespace: argocd
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    helm:
+      valueObject:
+        clusterId: {{ .Values.clusterId }}
+    path: koko
+    repoURL: https://github.com/andersroos/gitops-university.git
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
