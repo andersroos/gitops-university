@@ -12,8 +12,9 @@ spec:
   project: default
   source:
     helm:
-      valueObject:
-        clusterId: {{ .Values.clusterId }}
+      parameters:
+        - name: clusterId
+          value: {{ .Values.clusterId }}
     path: koko
     repoURL: https://github.com/andersroos/gitops-university.git
     targetRevision: HEAD
