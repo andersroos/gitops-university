@@ -13,7 +13,7 @@ spec:
   source:
     helm:
       valueObject:
-        clusterId: id1
+        clusterId: {{ .Values.clusterId }}
     path: koko
     repoURL: https://github.com/andersroos/gitops-university.git
     targetRevision: HEAD
