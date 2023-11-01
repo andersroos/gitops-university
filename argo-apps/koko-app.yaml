@@ -1,10 +1,10 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  finalizers:
-  - resources-finalizer.argocd.argoproj.io
   name: koko-app
   namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
     namespace: argocd
@@ -13,7 +13,7 @@ spec:
   source:
     helm:
       valueObject:
-        clusterId: {{ .Values.clusterId }}
+        clusterId: id1
     path: koko
     repoURL: https://github.com/andersroos/gitops-university.git
     targetRevision: HEAD
