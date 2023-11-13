@@ -1,23 +1,28 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: koko-app
-  namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io
+  name: gameserver-nonp-eu1
+  namespace: argocd
 spec:
   destination:
-    namespace: argocd
-    server: https://kubernetes.default.svc
+    name: gameservers-eu1
+    namespace: default
+  ignoreDifferences:
+  - group: agones.dev
+    jsonPointers:
+    - /spec/replicas
+    kind: Fleet
   project: default
   source:
     helm:
+      path: deployments/gameserver/fleets-nonp
+      repoURL: https://github.com/goalsgame/cloud-deployments.git
+      targetRevision = "ar/generate-fleets",
       parameters:
         - name: clusterId
-          value: {{ .Values.clusterId }}
-    path: koko
-    repoURL: https://github.com/andersroos/gitops-university.git
-    targetRevision: HEAD
+          value: eu1
   syncPolicy:
     automated:
       prune: true
